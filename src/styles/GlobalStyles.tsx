@@ -1,21 +1,12 @@
 import { createGlobalStyle, DefaultTheme } from "styled-components";
 
-export const themeLight: DefaultTheme = {
+export const theme: DefaultTheme = {
   colors: {
     primary: "red",
     text: "black",
     background: "white",
     link: "yellow",
     component: "whitesmoke",
-  },
-};
-export const themeDark: DefaultTheme = {
-  colors: {
-    text: "#fff",
-    background: "#272822",
-    link: "crimson",
-    component: "gray",
-    primary: "yellow",
   },
 };
 
@@ -29,6 +20,18 @@ const GlobalStyles = createGlobalStyle`
    body{
      transition: 0.25s linear all;
    }
+   .App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .AppMain {
+    flex: 1;
+    overflow: hidden;
+    background-color: white;
+  }
 `;
 
 export default GlobalStyles;

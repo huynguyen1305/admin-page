@@ -1,51 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import GlobalStyles, { themeLight, themeDark } from "../styles/GlobalStyles";
-import { useAppDispatch, useAppSelector } from "./hooks";
-import { setTypeTheme } from "../features/toggleModeTheme/toggleModeThemeSlice";
-import ToggleModeTheme from "../features/toggleModeTheme/ToggleModeTheme";
+import GlobalStyles, { theme } from "../styles/GlobalStyles";
 
-function getTypeTheme(typeTheme: string) {
-  if (typeTheme === "light") {
-    return themeLight;
-  }
-  if (typeTheme === "dark") {
-    return themeDark;
-  } else return themeLight;
-}
+import { Layout } from "antd";
+import SiderLeft from "../components/SiderLeft/SiderLeft";
+
+const { Content } = Layout;
 
 const AppWrapper: React.FC = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const { typeTheme } = useAppSelector((state) => state.toggleModeTheme);
-  const theme = getTypeTheme(typeTheme);
+  const [collapsed, setCollapsed] = useState(false);
 
-  useEffect(() => {
-    const localTheme = window.localStorage.getItem("theme");
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches &&
-    !localTheme
-      ? dispatch(setTypeTheme("dark"))
-      : localTheme
-      ? dispatch(setTypeTheme(localTheme))
-      : dispatch(setTypeTheme("light"));
-  }, [dispatch]);
-
+  const toggle = () => {
+    setCollapsed(!collapsed);
+  };
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <div className="App">
-        <header
-          className="AppHeader"
-          style={{ display: "flex", padding: "1rem" }}
-        >
-          <ToggleModeTheme></ToggleModeTheme>
-        </header>
-        <main className="AppMain">
-          <div>{children}</div>
-        </main>
-        <footer>
-          <div>abc</div>
-        </footer>
+        <Layout hasSider={true}>
+          <SiderLeft toggle={toggle} collapsed={collapsed}></SiderLeft>
+          <Layout className="site-layout">
+            <Content
+              className="AppMain"
+              style={{
+                margin: "1rem",
+                padding: "1rem",
+              }}
+              onClick={() => setCollapsed(true)}
+            >
+              {children}
+            </Content>
+          </Layout>
+        </Layout>
       </div>
     </ThemeProvider>
   );

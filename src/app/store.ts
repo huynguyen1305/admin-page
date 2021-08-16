@@ -1,12 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CounterReducer from "../features/counter/counterSlice";
-import ToggleModeThemeReducer from "../features/toggleModeTheme/toggleModeThemeSlice";
+
 import { rtkClient } from "../services/rtkQueryClient";
 
 export const store = configureStore({
   reducer: {
-    counter: CounterReducer,
-    toggleModeTheme: ToggleModeThemeReducer,
     [rtkClient.reducerPath]: rtkClient.reducer,
   },
   middleware: (getDefaultMiddleware) =>

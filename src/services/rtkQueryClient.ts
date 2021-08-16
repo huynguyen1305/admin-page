@@ -3,12 +3,12 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // https://redux-toolkit.js.org/rtk-query/api/fetchBaseQuery
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://jsonplaceholder.typicode.com/",
+  baseUrl: "https://admin-page-api.herokuapp.com/api",
   //   prepareHeaders: Handle header
 });
 
 export const rtkClient = createApi({
   baseQuery: baseQuery,
-  tagTypes: ["Posts"],
+  tagTypes: ["CovidApp"],
   endpoints: () => ({}),
 });
