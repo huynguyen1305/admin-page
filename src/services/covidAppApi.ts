@@ -12,6 +12,9 @@ interface ParamsCovidApp {
 const covidApp = rtkClient.injectEndpoints({
   overrideExisting: true,
   endpoints: (build) => ({
+    getCovidAppUpdate: build.query<ICovidApp[], void>({
+      query: () => "/covidapp/update-m",
+    }),
     updateCovidApp: build.mutation<ICovidApp[], Partial<ParamsCovidApp>>({
       query: (params) => {
         return {
@@ -24,4 +27,7 @@ const covidApp = rtkClient.injectEndpoints({
   }),
 });
 
-export const { useUpdateCovidAppMutation } = covidApp;
+export const {
+  useUpdateCovidAppMutation,
+  useGetCovidAppUpdateQuery,
+} = covidApp;

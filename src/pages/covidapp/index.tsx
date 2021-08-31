@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { Typography, Button, notification, Divider } from "antd";
-import { useUpdateCovidAppMutation } from "../../services/covidAppApi";
+import {
+  useUpdateCovidAppMutation,
+  useGetCovidAppUpdateQuery,
+} from "../../services/covidAppApi";
 
 const CovidAppIndex = () => {
   const [updateCovidApp, response] = useUpdateCovidAppMutation();
+  const { data } = useGetCovidAppUpdateQuery();
+  console.log(data);
   console.log(response);
   useEffect(() => {
     if (response.isSuccess) {
@@ -23,6 +28,7 @@ const CovidAppIndex = () => {
       });
     }
   }, [response]);
+  console.log(data);
   return (
     <div>
       <Typography.Title level={3}>Covid App</Typography.Title>
